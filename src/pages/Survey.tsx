@@ -7,25 +7,26 @@ import { useFireproof } from 'use-fireproof'
 import { Items } from '../components/Items'
 import { InlineEditor } from '../components/InlineEditor'
 
-export type TopicDoc = {
+
+export type SurveyDoc = {
   _id?: string
   title: string
   description?: string
   created: number
   updated: number
-  type: 'topic'
+  type: 'survey'
 }
 
-export function Topic() {
+export function Survey() {
   // const navigate = useNavigate() // Initialize useHistory hook
   const [isEditing, setIsEditing] = useState(false)
   const [isEditingTitle, setIsEditingTitle] = useState(false)
 
-  const { database, useLiveQuery } = useFireproof('topics')
+  const { database, useLiveQuery } = useFireproof('surveys')
   const { id } = useParams()
 
-  const topics = useLiveQuery('_id', { key: id })
-  const [topic] = topics.docs as TopicDoc[]
+  const surveys = useLiveQuery('_id', { key: id })
+  const [survey] = surveys.docs as SurveyDoc[]
 
   return (
     <div>
@@ -33,37 +34,26 @@ export function Topic() {
         {isEditingTitle ? (
           <InlineEditor
             field="title"
-            topic={topic}
+            topic={survey}
             database={database}
             isEditing={isEditingTitle}
             setIsEditing={setIsEditingTitle}
           />
         ) : (
           <h1 className="text-2xl font-bold" onClick={() => setIsEditingTitle(true)}>
-            {topic?.title}
+            {survey?.title}
           </h1>
         )}
       </div>
       <div className="mb-2">
         <span className="text-sm text-gray-500">
-          Created: {new Date(topic?.created).toLocaleString()}
+          Created: {new Date(survey?.created).toLocaleString()}
         </span>
         <span className="ml-4 text-sm text-gray-500">
-          Updated: {new Date(topic?.updated).toLocaleString()}
+          Updated: {new Date(survey?.updated).toLocaleString()}
         </span>
       </div>
-      <InlineEditor
-        field="description"
-        label="Edit Description: "
-        topic={topic}
-        database={database}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-      />
-
-
-
-      <Items topicId={id!} />
+      <Items surveyId={id!} />
     </div>
   )
 }

@@ -1,37 +1,37 @@
 import { useFireproof } from 'use-fireproof'
 import { Link } from 'react-router-dom'
-import { TopicDoc } from '../pages/Topic'
+import { SurveyDoc } from '../pages/Survey'
 import { useState } from 'react'
 import { AutoFocusInput } from './AutoFocusInput'
 
-export function Topics() {
-  const { database, useLiveQuery } = useFireproof('topics')
+export function Surveys() {
+  const { database, useLiveQuery } = useFireproof('surveys')
   const [isCreating, setIsCreating] = useState(false)
-  const [topicName, setTopicName] = useState('')
+  const [surveyName, setSurveyName] = useState('')
 
-  const topics = useLiveQuery(
+  const surveys = useLiveQuery(
     (doc, emit) => {
-      if (doc.type === 'topic') {
+      if (doc.type === 'survey') {
         emit(doc.title)
       }
     },
     { descending: false }
-  ).docs as TopicDoc[]
+  ).docs as SurveyDoc[]
 
   const handleCreateClick = async () => {
-    const topicDoc: TopicDoc = {
-      type: 'topic',
-      title: topicName,
+    const surveyDoc: SurveyDoc = {
+      type: 'survey',
+      title: surveyName,
       created: Date.now(),
       updated: Date.now()
     }
-    await database.put(topicDoc)
+    await database.put(surveyDoc)
     setIsCreating(false)
-    setTopicName('')
+    setSurveyName('')
   }
   return (
     <div className="py-2">
-      <h2 className="text-2xl text-bold">Topics</h2>
+      <h2 className="text-2xl text-bold">Surveys</h2>
       <ul className="list-inside list-none">
         <li key="add" className="p-2">
           {isCreating ? (
@@ -43,9 +43,9 @@ export function Topics() {
               }}
             >
               <AutoFocusInput
-                value={topicName}
+                value={surveyName}
                 isActive={isCreating}
-                onChange={e => setTopicName(e.target.value)}
+                onChange={e => setSurveyName(e.target.value)}
                 className="bg-slate-300 p-1 mr-2 text-xs text-black flex-grow"
               />
               <button type="submit" className="ml-2">
@@ -56,15 +56,15 @@ export function Topics() {
             <>
               <span className="inline-block text-slate-700">+</span>
               <span onClick={() => setIsCreating(true)} className="inline-block ml-2">
-                Create new topic
+                Create new survey
               </span>
             </>
           )}
         </li>
-        {topics.map(doc => (
+        {surveys.map(doc => (
           <li key={doc._id} className="p-2 text-gray-500">
             <Link
-              to={`/topic/${doc._id}`}
+              to={`/survey/${doc._id}`}
               className="block text-xs hover:bg-gray-100 dark:hover:bg-gray-800 rounded p-2"
             >
               <span className="block font-bold">{doc.title}</span>

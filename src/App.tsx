@@ -3,9 +3,9 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { Header } from './components/Header'
 import { Home } from './pages/Home'
-import { Topic } from './pages/Topic'
+import { Survey } from './pages/Survey'
 import { Sidebar } from './components/Sidebar'
-import { Item } from './pages/Item'
+import { Poll } from './pages/Poll'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,8 +18,8 @@ function Layout({ children }: { children: React.ReactNode }) {
 
 function App() {
   const routes = [
-    { path: '/topic/:id', component: Topic },
-    { path: '/item/:id', component: Item },
+    { path: '/survey/:id', component: Survey },
+    { path: '/poll/:id', component: Poll },
     { path: '/', component: Home }
   ]
 

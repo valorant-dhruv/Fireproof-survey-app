@@ -1,25 +1,29 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from "react";
 
 const AutoFocusInput = ({
+  key,
   isActive,
   value,
   onChange,
-  className
+  className,
+  placeholder,
 }: {
-  isActive: boolean
-  value: string
-  onChange: (ok: React.ChangeEvent<HTMLInputElement>) => void
-  className: string
+  key?: string;
+  isActive: boolean;
+  value: string;
+  onChange: (ok: React.ChangeEvent<HTMLInputElement>) => void;
+  className: string;
+  placeholder: string;
 }) => {
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (isActive && inputRef.current) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      inputRef.current.focus()
+      inputRef.current.focus();
     }
-  }, [isActive])
+  }, [isActive]);
 
   return (
     <input
@@ -27,10 +31,11 @@ const AutoFocusInput = ({
       ref={inputRef}
       type="text"
       value={value}
+      placeholder={placeholder}
       onChange={onChange}
       className={className}
     />
-  )
-}
+  );
+};
 
-export { AutoFocusInput }
+export { AutoFocusInput };

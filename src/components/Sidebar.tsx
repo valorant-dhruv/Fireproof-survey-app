@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useFireproof } from 'use-fireproof'
 import { Login } from './Login'
-import { Topics } from './Topics'
+import { Surveys } from './Surveys'
 
 export function Sidebar() {
-  const { database } = useFireproof('topics')
+  const { database } = useFireproof('surveys')
   const [authorized, setAuthorized] = useState(false)
   const [userEmail, setUserEmail] = useState(localStorage.getItem('user-email') || '')
-  const cx = database.connect('gallery')
+  const cx = database.connect()
 
   useEffect(() => {
     cx.ready.then(() => {
@@ -31,7 +31,7 @@ export function Sidebar() {
         placeholder={userEmail}
         authorized={authorized}
       />
-      <Topics />
+      <Surveys />
     </div>
   )
 }

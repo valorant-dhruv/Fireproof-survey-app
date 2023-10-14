@@ -34,6 +34,7 @@ const AutoFocusInput = ({
       placeholder={placeholder}
       onChange={onChange}
       className={className}
+      required
     />
   );
 };

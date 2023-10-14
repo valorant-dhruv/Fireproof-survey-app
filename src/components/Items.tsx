@@ -69,20 +69,29 @@ export function Items({ surveyId }: { surveyId: string }) {
         <li key="add" className="p-2">
           {isCreating ? (
             <form
-              className="flex items-center"
+              className="flex flex-col items-center"
               onSubmit={(e) => {
                 e.preventDefault();
                 handleCreateClick();
+              }}
+              style={{
+                padding: "20px",
+                background: "#f7f7f7",
+                border: "1px solid #ccc",
+                borderRadius: "15px",
+                maxWidth: "320px",
+                // margin: "0 auto",
               }}
             >
               <AutoFocusInput
                 value={questionName}
                 isActive={isCreating}
                 onChange={(e) => setQuestionName(e.target.value)}
-                className="bg-slate-300 p-1 mr-2 text-xs text-black flex-grow"
+                className="bg-slate-300 p-2 text-sm text-black mb-2"
                 placeholder="Enter the question"
               />
               {Object.keys(options).map((key, index) => {
+                let placeholder = `Option ${index + 1}`;
                 return (
                   <div>
                     <AutoFocusInput
@@ -97,17 +106,73 @@ export function Items({ surveyId }: { surveyId: string }) {
                           };
                         });
                       }}
-                      className="bg-slate-300 p-1 mr-2 text-xs text-black flex-grow"
-                      placeholder="Enter the option"
+                      className="bg-slate-300 p-2 text-sm text-black mb-2"
+                      placeholder={placeholder}
                     />
                     <br />
                   </div>
                 );
               })}
 
-              <button type="submit" className="ml-2">
+              {/* <button
+                type="submit"
+                className="ml-2"
+                style={{
+                  background: "#4CAF50",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                }}
+              >
                 ✔️
               </button>
+              <button
+                className="ml-2"
+                style={{
+                  background: "red",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "5px 10px",
+                  cursor: "pointer",
+                }}
+              >
+                Close
+              </button> */}
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button
+                  type="submit"
+                  style={{
+                    background: "#4CAF50",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    padding: "5px 10px",
+                    cursor: "pointer",
+                    fontSize: "1rem",
+                  }}
+                >
+                  ✔️ Create
+                </button>
+                <button
+                  onClick={(e) => {
+                    setIsCreating(false);
+                  }}
+                  style={{
+                    background: "red",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    padding: "5px 10px",
+                    cursor: "pointer",
+                    fontSize: "1rem",
+                  }}
+                >
+                  ✖ Close
+                </button>
+              </div>
             </form>
           ) : (
             <>
@@ -155,15 +220,6 @@ export function Items({ surveyId }: { surveyId: string }) {
                     {doc.options["4"]}
                   </option>
                 </poll-party>
-                <button
-                  onClick={(e) => {
-                    setisEditing((oldata) => {
-                      return !oldata;
-                    });
-                  }}
-                >
-                  <span className="font-bold">Change title?</span>
-                </button>
               </div>
             )}
             {/* <Link
@@ -178,6 +234,15 @@ export function Items({ surveyId }: { surveyId: string }) {
           </li>
         ))}
       </ul>
+      <button
+        onClick={(e) => {
+          setisEditing((oldata) => {
+            return !oldata;
+          });
+        }}
+      >
+        <span className="font-bold">Change titles?</span>
+      </button>
     </div>
   );
 }

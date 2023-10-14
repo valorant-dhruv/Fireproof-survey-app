@@ -11,12 +11,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fireproof/partykit": "^0.14.2",
     "@types/react-router-dom": "^5.3.3",
+    "partysocket": "0.0.10",
     "poll-party": "^0.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
-    "use-fireproof": "^0.13.3"
+    "use-fireproof": "^0.14.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
@@ -29,6 +31,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "partykit": "0.0.30",
     "postcss": "^8.4.30",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",

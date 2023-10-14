@@ -1,11 +1,13 @@
-import './App.css'
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { Header } from './components/Header'
-import { Home } from './pages/Home'
-import { Survey } from './pages/Survey'
-import { Sidebar } from './components/Sidebar'
-import { Poll } from './pages/Poll'
+import "./App.css";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { Header } from "./components/Header";
+import { Home } from "./pages/Home";
+import { Survey } from "./pages/Survey";
+import { Sidebar } from "./components/Sidebar";
+import { Poll } from "./pages/Poll";
+import { connect } from "@fireproof/partykit";
+import { useFireproof } from 'use-fireproof'
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,15 +15,18 @@ function Layout({ children }: { children: React.ReactNode }) {
       <Sidebar />
       <div className="MainContent flex-1 p-4 ">{children}</div>
     </div>
-  )
+  );
 }
 
 function App() {
+  const { database } = useFireproof("surveys");
+  connect.partykit(database,'https://smart-book-party.valorant-dhruv.partykit.dev')
   const routes = [
-    { path: '/survey/:id', component: Survey },
-    { path: '/poll/:id', component: Poll },
-    { path: '/', component: Home }
-  ]
+    { path: "/survey/:id", component: Survey },
+    { path: "/poll/:id", component: Poll },
+    { path: "/", component: Home },
+  ];
+
 
   return (
     <>
@@ -36,7 +41,7 @@ function App() {
         ))}
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

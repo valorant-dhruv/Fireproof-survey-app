@@ -128,17 +128,19 @@ export function Items({ surveyId }: { surveyId: string }) {
             className="p-2 text-gray-500 flex flex-col justify-between items-start"
             style={{ alignItems: "flex-start" }} // Align children to the start (vertically)
           >
-            {isEditing && 
-             <InlineEditor
-             field="question"
-             topic={doc}
-             database={database}
-             isEditing={isEditing}
-             setIsEditing={setisEditing}
-           ></InlineEditor>}
+            {isEditing && (
+              <InlineEditor
+                field="question"
+                topic={doc}
+                database={database}
+                isEditing={isEditing}
+                setIsEditing={setisEditing}
+              ></InlineEditor>
+            )}
             {!isEditing && (
               <div>
-                <poll-party host="poll-party.genmon.partykit.dev">
+                {/* <poll-party host="poll-party.genmon.partykit.dev"> */}
+                <poll-party host="https://smart-book-party.valorant-dhruv.partykit.dev">
                   <question style={{ color: "black" }}>{doc.question}</question>
                   <option id={doc.options["1"]} style={{ color: "black" }}>
                     {doc.options["1"]}
